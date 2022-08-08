@@ -1,10 +1,36 @@
-<table class="table">
+<div class="mb-3">
+    <label  for="filterText" class="form-label">Ürün Arama</label>
+    <input type="text" class="form-control" id="filterText" placeholder="arama ifadesi giriniz : " [(ngModel)]="filterText" >
+  </div>
+  <div *ngIf="filterText" class="alert alert-success">{{filterText | uppercase}} aradınız</div>
+
+
+<div *ngIf="dataLoaded==false" class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+<table *ngIf="dataLoaded == true" class="table border">
     <thead>
-        <tr *ngFor="let product of products">
-            <td>{{product.productId}}</td>
-            <td>{{product.productName}}</td>
-            <td>{{product.categoryId}}</td>
-            <td>{{product.productId}}</td>
+        <tr>
+            <td>Product Id</td>
+            <td>Product Name</td>
+            <td>Category Id</td>
+            <td>Price</td>
+            <td>Kdv'li fiyat</td>
+            <td>Stock</td>
+            <td></td>
         </tr>
     </thead>
+    <tbody>
+        <tr *ngFor="let product of products |filterPipe:filterText">
+            <td>{{product.productId}}</td>
+            <td>{{product.productName | uppercase}}</td>
+            <td>{{product.categoryId}}</td>
+            <td>{{product.unitPrice | currency }}</td>
+            <td>{{product.unitPrice |vatAdded  |currency}}</td>
+            <td>{{product.unitsInStock}}</td>
+            <td><div (click)="addToCart(product)"  class="btn btn-success">Sepete Ekle</div></td>
+        </tr>
+    </tbody>
 </table>

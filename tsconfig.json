@@ -10,6 +10,10 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
+    // sonrada-eklenen
+    "strictPropertyInitialization": false,
+    // sonradan eklnene
+    "strictNullChecks": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
